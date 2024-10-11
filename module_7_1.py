@@ -44,6 +44,7 @@ class Shop:
                     # Если продукт уже есть, выводим сообщение
                     print(f'Продукт {product_str} уже есть в магазине')
 
+
 # Пример использования
 s1 = Shop()
 p1 = Product('Potato', 50.5, 'Vegetables')
