@@ -2,7 +2,7 @@ def custom_write(file_name, strings):
     with open(file_name, 'w', encoding='utf-8') as f:  # тут будет запись строк
         strings_positions = {}  # создаем словарь для хранения позиций
         line_number = 1  # счетчик строк, начинается с 1
-        for line in strings:
+        for line in strings: #Цикл по строкам и запись их в файл
             byte_position = f.tell()  # узнаем позицию до записи строки
             f.write(line + '\n')  # Записывать в файл file_name все строки из списка strings, каждая на новой строке.
             # После каждой строки будет закрываться новая строка.
