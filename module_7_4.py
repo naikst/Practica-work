@@ -17,6 +17,7 @@ print(f"Результат: {challenge_result}")
 print(f"Сегодня было решено {tasks_total} задач, в среднем по {time_avg:.1f} секунды на задачу!")
 
 
+
 # Вычисление победителя
 if score_1 > score_2 or (score_1 == score_2 and team1_time < team2_time):
     challenge_result = 'Победа команды Мастера кода!'
