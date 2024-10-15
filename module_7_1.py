@@ -10,6 +10,7 @@ class Product:
         # Возвращает строку вида '<название>, <вес>, <категория>'
         return f'{self.name}, {self.weight}, {self.category}'
 
+
 # Класс Shop для управления магазином и работы с файлами
 class Shop:
     __file_name = 'products.txt'  # Инкапсулированный атрибут с именем файла
