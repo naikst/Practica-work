@@ -10,6 +10,7 @@ class Vehicle:
     def get_model(self):
         return self.__model
 
+
     def get_horsepower(self):
         return self.__engine_power
 
