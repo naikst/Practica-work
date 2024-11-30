@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/.idea/pythonworks.iml" filepath="$PROJECT_DIR$/.idea/pythonworks.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/new-feature.iml" filepath="$PROJECT_DIR$/.idea/new-feature.iml" />
+>>>>>>> b757a69def548723c5df7f9c895c48b217e05749
+    </modules>
+  </component>
+</project>
