@@ -27,7 +27,7 @@ class House:  # Определение класса House (Дом)
     def __str__(self):
         # Специальный метод, который вызывается при преобразовании объекта в строку
         # Например, при использовании функции print(house_object)
-        return f"Дом '{self.name}' с {self.number_of_floors} этажами"
+        return f"Название:'{self.name}', кол-во этажей: {self.number_of_floors}"
         # Возвращает строку с информацией о доме
 
 
