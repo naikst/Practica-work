@@ -2,15 +2,15 @@ import hashlib
 import time
 
 class User:
-    def __init__(self, nickname: str, password: str, age: int): #конструктор
-        self.nickname = nickname #имя пользователя
-        self.password = self.__hash_password(password)  #хэшируем пароль
-        self.age = age #возраст пользователя
+    def __init__(self, nickname: str, password: str, age: int): # Инициализация атрибутов пользователя
+        self.nickname = nickname # Имя пользователя
+        self.password = self.__hash_password(password)  # Хэширование пароля для безопасности
+        self.age = age # Возраст пользователя
 
-    def __hash_password(self, password: str) -> int: #хэшируем пароль
-        return int(hashlib.sha256(password.encode()).hexdigest(), 16) #возвращаем хэш
+    def __hash_password(self, password: str) -> int: # Хэшируем пароль для безопасного хранения
+        return int(hashlib.sha256(password.encode()).hexdigest(), 16) # Возвращаем хэш пароля
 
-    def __str__(self): #выводим информацию о пользователе
+    def __str__(self): # Выводим 'никнейм' вместо полноценной информации о пользователе
         return self.nickname
 
     def __repr__(self):
@@ -18,11 +18,11 @@ class User:
 
 
 class Video:
-    def __init__(self, title: str, duration: int, time_now: int = 0, adult_mode: bool = False): #конструктор
-        self.title = title
-        self.duration = duration
-        self.time_now = time_now
-        self.adult_mode = adult_mode
+    def __init__(self, title: str, duration: int, time_now: int = 0, adult_mode: bool = False): # Видео и его характеристики
+        self.title = title # Название видео
+        self.duration = duration # Продолжительность видео
+        self.time_now = time_now # Текущее время просмотра
+        self.adult_mode = adult_mode # Флаг, указывающий на возрастное ограничение
 
 
 class UrTube:
@@ -33,52 +33,53 @@ class UrTube:
 
     # Авторизация пользователя по никнейму и паролю и возраст пользователя
     def log_in(self, nickname: str, password: str) -> bool:
+        # Проходим по списку пользователей для проверки правильности пароля и входа
         for user in self.users:
             if user.nickname == nickname and user.password == user.__hash_password(password):
-                self.current_user = user
-                return True
-        return False
+                self.current_user = user # Устанавливаем текущего пользователя
+                return True # Возврат успеха входа
+        return False # Возврат ошибки входа
 
     # Регистрация пользователя по никнейму и паролю и возраст пользователя
     def register(self, nickname: str, password: str, age: int) -> bool:
         for user in self.users:
             if user.nickname == nickname:
                 print(f"Пользователь {nickname} уже существует")
-                return False
-        self.users.append(User(nickname, password, age))
-        self.current_user = self.users[-1] # После регистрации пользователь автоматически входит в систему
-        return True
+                return False # Отмена регистрации, если пользователь существует
+        self.users.append(User(nickname, password, age)) # Добавление нового пользователя
+        self.current_user = self.users[-1] # Автоматический вход после регистрации
+        return True # Регистрация успешна
 
     def log_out(self) -> None: # выход из аккаунта
         self.current_user = None
 
-    def add(self, *videos): # добавление видео если оно ещё не добавлено
+    def add(self, *videos): # Добавление видео в список если его ещё нет
         for video in videos:
             if not any(existing_video.title == video.title for existing_video in self.videos):
-                self.videos.append(video)
+                self.videos.append(video) # Добавляем видео в список
 
 
-    def get_videos(self, search_word): # поиск видео по названию
-        search_word = search_word.lower()
+    def get_videos(self, search_word): # Поиск видео по ключевому слову из названия
+        search_word = search_word.lower() # Приведение слова к нижнему регистру
         return [video.title for video in self.videos if search_word in video.title.lower()]
 
     # Воспроизведение видео с учётом возрастных ограничений и авторизации пользователя
     def watch_video(self, title):
-        if not self.current_user: # Если пользователь не авторизован
+        if not self.current_user: # Проверяем, что пользователь вошёл в систему
             print("Войдите в аккаунт, чтобы смотреть видео")
             return
-        video = next((v for v in self.videos if v.title == title), None)
+        video = next((v for v in self.videos if v.title == title), None) # Ищем видео по названию
         if not video:
             print(f"Видео '{title}' не найдено.")
             return
-        if video.adult_mode and self.current_user.age < 18: # Проверка на возрастное ограничение
+        if video.adult_mode and self.current_user.age < 18: # Проверка на возрастные ограничения
             print("Вам нет 18 лет, пожалуйста покиньте страницу")
             return
-        for second in range(1, video.duration + 1):
+        for second in range(1, video.duration + 1): # Имитируем просмотр видео по секундам
             time.sleep(1)
             print(second, end=" ")
             if second == video.duration:
-                print("\nКонец видео")
+                print("\nКонец видео") # Заканчиваем просмотр
 
 
 ur = UrTube()
