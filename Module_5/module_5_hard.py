@@ -1,7 +1,6 @@
 import hashlib
 import time
 
-
 class User:
     def __init__(self, nickname: str, password: str, age: int): #конструктор
         self.nickname = nickname #имя пользователя
