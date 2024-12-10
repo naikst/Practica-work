@@ -1,67 +1,72 @@
-class Animals:
-    alive = True
-    fed = False
+class Animal:
+    alive = True  # Живое существо, изначально живое
+    fed = False  # Изначально не накормленное
+    name = ""  # Имя животного
 
+    # Конструктор, который задаёт имя животного
     def __init__(self, name):
         self.name = name
 
-        # Если переданное растение (food) съедобное - выводит на экран "<self.name> съел <food.name>",
-        # меняется атрибут fed на True. В противном случае выводит на экран "<self.name> не съел <food.name>"
-
+    # Метод, позволяющий животному есть
     def eat(self, food):
+        # Проверяем, съедобно ли
         if food.edible:
             print(f"{self.name} съел {food.name}")
-            self.fed = True
-        else:  # Если переданное растение (food) не съедобное - выводит на экран "<self.name> не стал есть <food.name>",
-            # меняется атрибут alive на False.
+            self.fed = True  # Животное накормлено
+        else:
             print(f"{self.name} не стал есть {food.name}")
-            self.alive = False  # В противном случае выводит на экран "<self.name> стал есть <food.name>"
+            self.alive = False  # Если не съедобно, то животное умирает
 
 
-class Plant:
-    edible = False
+class Planet:
+    edible = False  # Объекты по умолчанию не съедобны
+    name = ""  # Имя объекта
 
+    # Задаём имя объекта
     def __init__(self, name):
         self.name = name
 
-
-#  #У каждого из объектов класса Mammal и Predator должны быть атрибуты и методы:
-# eat(self, food) - метод, где food - это параметр, принимающий объекты классов растений.
-
-
-class Mammal(Animals):
-    pass  # Наследует все от Animal без изменений
+class Mammal(Animal):
+    # Млекопитающее, наследует свойства животного
+    pass
 
 
-class Predator(Animals):
-    pass  # Наследует все от Animal без изменений
+class Predator(Animal):
+    # Хищник, наследует свойства животного
+    pass
 
 
-class Flower(Plant):
-    pass  # Наследует все от Animal без изменений
+class Flower(Planet):
+    edible = True  # Цветок съедобен
 
-
-# У каждого объекта Fruit должен быть атрибут edible = True (переопределить при наследовании)
-class Fruit(Plant):
     def __init__(self, name):
-        super().__init__(name)  # Наследует все от Plant без изменений
-        self.edible = True  # Наследует все от Plant без изменений
+        super().__init__(name)
+
+class Fruit(Planet):
+    def __init__(self, name):
+        super().__init__(name)
 
 
-a1 = Predator('Волк с Уолл-Стрит')
-a2 = Mammal('Хатико')
-p1 = Flower('Цветик семицветик')
-p2 = Fruit('Заводной апельсин')
+# Создание экземпляров классов и взаимодействие между ними
+a1 = Predator('Волк с Уолл-Стрит')  # Хищник
+a2 = Mammal('Хатико')  # Млекопитающее
+p1 = Flower('Цветик семицветик')  # Съедобный цветок
+p2 = Fruit('Заводной апельсин')  # Фрукт
 
 print(a1.name)
 print(p1.name)
+
 print(a1.alive)
 print(a2.fed)
 
+# Хищник пытается съесть цветок
 a1.eat(p1)
+
+# Млекопитающее съедает фрукт
 a2.eat(p2)
 
 print(a1.alive)
 print(a2.fed)
 
-# Что произошло: Хищник попытался съесть цветок и погиб, млекопитающее съело фрукт и насытилось.
+# Итоги: Хищник попытался съесть цветок и погиб, млекопитающее съело фрукт и насытилось.
+
