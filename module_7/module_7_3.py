@@ -1,50 +1,43 @@
 class WordsFinder:
     def __init__(self, *file_names):
-        # *file_names означает, что мы можем передать любое количество файлов
-        self.file_names = file_names  # Создаём список файлов
+        self.file_names = file_names  # Сохраняем названия файлов в атрибуте класса
 
     def get_all_words(self):
-        # Возвращает список слов
-        all_words = {}
-        # Перебираем все файлы
-        for file_name in self.file_names:
-            # Получаем список слов из каждого файла
-            with open(file_name, 'r', encoding='utf-8') as file:
-                content = file.read().lower()  # Читаем содержимое файла и приводим к нижнему регистру
+        all_words = {}  # Создаем пустой словарь для хранения результатов
+
+        for file in self.file_names:  # Перебираем названия файлов
+            with open(file, 'r', encoding='utf-8') as f:  # Открываем файл
+                content = f.read().lower()  # Читаем содержимое файла и приводим к нижнему регистру
                 for punct in [',', '.', '=', '!', '?', ';', ':', ' - ']:  # Убираем знаки препинания
-                    content = content.replace(punct, ' ')
+                    content = content.replace(punct, ' ')  # Заменяем знаки препинания на пробелы
+                words = content.split()  # Разбиваем текст на слова
+                all_words[file] = words  # Сохраняем список слов в словарь с ключом - имя файла
 
-                words = content.split()  # Разбиваем строку на список слов
-                all_words[file_name] = words  # Сохраняем список слов в словарь с ключом - имя файла
+        return all_words  # Возвращаем словарь со словами после обработки всех файлов
 
-        return all_words
-
-    def find(self, word):  # Возвращает позицию слова в тексте
-        word = word.lower()  # Приводим к нижнему регистру
+    def find(self, word):  # Метод для поиска слова
         all_words = self.get_all_words()  # Получаем все слова из файлов
-        word_positions = {}
-        for file_name, words in all_words.items():
-            try:
-                # Ищем индекс первого вхождения слова
-                position = words.index(word) + 1  # Получаем позицию в списке слов, начинаем с 1
-                word_positions[file_name] = position
-            except ValueError:
-                # Если слово не найдено, пропускаем файл
-                continue
+        word = word.lower()  # Приводим искомое слово к нижнему регистру
+        result = {}  # Создаем пустой словарь для хранения результатов
 
-        return word_positions
+        for file_name, words in all_words.items():  # Перебираем все файлы и их слова
+            if word in words:  # Проверяем, есть ли слово в списке слов
+                position = words.index(word)  # Находим позицию первого вхождения слова
+                result[file_name] = position + 1  # Сохраняем в словарь: имя файла и позицию слова
 
-    def count(self, word):
-        word = word.lower()
+        return result  # Возвращаем словарь с результатами
+
+    def count(self, word):  # Метод для подсчета количества вхождений слова
         all_words = self.get_all_words()  # Получаем все слова из файлов
-        word_counts = {}
+        word = word.lower()  # Приводим искомое слово к нижнему регистру
+        result = {}  # Создаем пустой словарь для хранения результатов
 
-        for file_name, words in all_words.items():  # Проходим по файлам
-            count = words.count(word)  # Подсчитываем количество вхождений слова в списке слов
-            if count > 0:
-                word_counts[file_name] = count  # Добавляем в словарь, если слово найдено
+        for file_name, words in all_words.items():  # Перебираем все файлы и их слова
+            count = words.count(word)  # Считаем количество вхождений слова в списке
+            if count > 0:  # Если слово найдено
+                result[file_name] = count  # Сохраняем в словарь: имя файла и количество вхождений
 
-        return word_counts
+        return result  # Возвращаем словарь с результатами
 
 
 # Пример использования:
