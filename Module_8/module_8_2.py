@@ -9,7 +9,7 @@ def personal_sum(numbers):  # принимает коллекцию чисел
             # Если элемент не является числом, будет вызвано исключение TypeError
             result += number
         except TypeError: # Если возникло исключение TypeError, увеличиваем счётчик некорректных данных
-            print(f"Некорректный тип данных для подсчёта суммы - {number}")
+            print(f"Некорректный тип данных для подсчёта суммы - {repr(number)}")
             incorrect_data += 1
     # В конце возвращаем кортеж из двух значений:
     # - сумма всех корректных чисел
@@ -20,11 +20,11 @@ def personal_sum(numbers):  # принимает коллекцию чисел
 def calculate_average(numbers):
     try:
         # Пытаемся вызвать функцию personal_sum для получения суммы и количества ошибок
-        sum, incorrect_data = personal_sum(numbers)
+        total, incorrect_data = personal_sum(numbers)
         # Возвращаем среднее арифметическое.
         # Среднее рассчитывается как сумма корректных чисел, делённая на количество этих чисел.
         # Общее количество чисел равно длине коллекции numbers минус количество некорректных данных.
-        return sum / (len(numbers) - incorrect_data)  # вычисление среднего
+        return total / (len(numbers) - incorrect_data)  # вычисление среднего
     # Обработка исключения, если деление на 0 (например, если все данные некорректны)
     except ZeroDivisionError:
         return 0  # Возвращаем 0, если делить не на что
