@@ -1,34 +1,37 @@
 class IncorrectVinNumber(Exception):
     def __init__(self, message):
-        self.message = message
-
+        self.message = message  # Устанавливаем сообщение об ошибке
+        super().__init__(self.message)  # Передаём сообщение базовому классу
 
 class IncorrectCarNumbers(Exception):
     def __init__(self, message):
-        self.message = message
+        self.message = message  # Устанавливаем сообщение об ошибке
+        super().__init__(self.message)  # Передаём сообщение базовому классу
 
 
 class Car:
     def __init__(self, model, vin, numbers):
-        self.model = model
-        self.__vin = vin
-        self.__numbers = numbers
-        self.__is_valid_vin(self.__vin)
-        self.__is_valid_numbers(self.__numbers)
+        self.model = model  # Сохраняем модель машины
+        # Проверяем VIN-номер
+        if self.__is_valid_vin(vin):
+            self.__vin = vin  # Сохраняем VIN, если он корректен
+        # Проверяем номера машины
+        if self.__is_valid_numbers(numbers):
+            self.__numbers = numbers  # Сохраняем номера, если они корректны
 
-    def __is_valid_vin(self, vin_number):
-        if not isinstance(vin_number, int):
-            raise IncorrectVinNumber('Некоректный тип vin номер')
-        if vin_number < 1000000 or vin_number > 99999999:
-            raise IncorrectVinNumber('Неверный диапазон для vin номера')
-        return True
+    def __is_valid_vin(self, vin):
+        if not isinstance(vin, int):  # Проверяем, что VIN — целое число
+            raise IncorrectVinNumber('Некорректный тип vin номера')
+        if not (1000000 <= vin <= 9999999):  # Проверяем диапазон VIN
+            raise IncorrectVinNumber('Неверный диапазон vin номера')
+        return True  # Если всё хорошо, возвращаем True
 
     def __is_valid_numbers(self, numbers):
-        if not isinstance(numbers, str):
+        if not isinstance(numbers, str):  # Проверяем, что номера — строка
             raise IncorrectCarNumbers('Некорректный тип данных для номеров')
-        if len(numbers) != 6: #Длина должна быть равна 6
+        if len(numbers) != 6:  # Проверяем длину номера
             raise IncorrectCarNumbers('Неверная длина номера')
-        return True
+        return True  # Если всё хорошо, возвращаем True
     # Пример выполняемого кода:
 
 try:
