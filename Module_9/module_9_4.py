@@ -10,19 +10,23 @@ print(result)
 
 
 
-# функция get_advanced_writer(file_name), которая возвращает функцию write_everything(*data_set),
-# и записывает данные в файл.
-def get_advanced_write(file_name):
+# Определяем внешнюю функцию, которая принимает имя файла
+def get_advanced_writer(file_name):
     # Внутренняя функция, которая принимает любое количество данных
     def write_everything(*data_set):
+        # Открываем файл в режиме добавления ('a')
         with open(file_name, 'a') as file:
+            # Проходим по каждому элементу в data_set
             for data in data_set:
+                # Записываем данные в файл, преобразуя их в строку
                 file.write(str(data))
+    # Возвращаем внутреннюю функцию
     return write_everything
 
-# Создаем функцию, ждя записи в файл "example.txt"
-write = get_advanced_write('example.txt')
+# Создаем функцию для записи в файл 'example.txt'
+write = get_advanced_writer('example.txt')
 
+# Записываем данные в файл
 write('Это строчка', ['А', 'это', 'уже', 'число', 5, 'в', 'списке'])
 
 
