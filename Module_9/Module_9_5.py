@@ -1,6 +1,4 @@
 # Пользовательский класс исключения StepValueError, который наследует от ValueError
-
-
 class StepValueError(ValueError):
     pass
 
