@@ -4,7 +4,6 @@ from datetime import timedelta  # Для форматирования време
 
 
 def wite_words(word_count, file_name):
-
     with open(file_name, 'w') as f:
         for i in range(1, word_count + 1):
             f.write(f"Какое-то слово № {i}\n")
