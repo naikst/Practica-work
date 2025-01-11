@@ -14,6 +14,7 @@ def wite_words(word_count, file_name):
 # Взятие текущего времени перед запуском функций
 start_time_func = time.time()
 
+
 # Запуск функций с аргументами из задачи
 wite_words(word_count=10, file_name='example1.txt')
 wite_words(word_count=30, file_name='example2.txt')
