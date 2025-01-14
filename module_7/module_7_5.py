@@ -1,24 +1,24 @@
-import os  # для работы с файловой системой.
-import time  # для форматирования времени.
+import os
+import time
 
-# Указываем директорию для обхода
-directory = r"C:\Practical_work\Practices" # Проход по всем файлам и папкам в указанной директории
+# Указываем путь к директории, которую мы хотим обойти
+directory = r"D:\Practices\module_7"
 
+# Обходим директорию с помощью os.walk
 for root, dirs, files in os.walk(directory):
-    # Функция os.walk() позволяет рекурсивно обходить все файлы и папки в указанной директории. Она возвращает кортеж из трех элементов
-    # root, dirs, files.
+    # Для каждого файла в директории
     for file in files:
+        # Получаем полный путь к файлу
         filepath = os.path.join(root, file)
-        filetime = os.path.getmtime(filepath)  # преобразует время из формата UNIX в локальное время.
+        # Получаем время последнего изменения файла
+        filetime = os.path.getmtime(filepath)
+        # Форматируем время в удобочитаемый формат
+        formatted_time = time.strftime("%d.%m.%Y %H:%M", time.localtime(filetime))
+        # Получаем размер файла
+        filesize = os.path.getsize(filepath)
+        # Получаем родительскую директорию файла
+        parent_dir = os.path.dirname(filepath)
 
-        formatted_time = time.strftime("%d.%m.%Y %H:%M", time.localtime(filetime))  # форматирует дату в привычный вид "день.месяц.год часы:минуты".
-        filesize = os.path.getsize(filepath)  # возвращает размер файла в байтах.
-        parent = os.path.dirname(filepath)  # возвращает путь до родительской директории.
-        relative_path = os.path.relpath(filepath, directory) # возвращает относительный путь к файлу.
-
-        print(f'Обнаружен файл: {file}, Путь: .\\{relative_path}, Размер: {filesize} байт, Время изменения: {formatted_time}, Родительская директория:.')
-
-
-
-
+        # Выводим информацию о файле
+        print(f'Обнаружен файл: {file}, Путь: {filepath}, Размер: {filesize} байт, Время изменения: {formatted_time}, Родительская директория: {parent_dir}')
 
